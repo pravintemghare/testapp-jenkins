@@ -1,0 +1,6 @@
+instance_type = "t2.micro"
+ami_id = "ami-005f9685cb30f234b"
+vpc_id = "vpc-04f6e267cad8bb681"
+subnet_id = "subnet-0b483668af0c1f758"
+disk_size = "8"
+server_name = "Web1"
