@@ -1,5 +1,5 @@
 provider "aws" {
-  region        = "us-east-1"
-  shared_config_files = ["/root/.aws/config"]
-  shared_credentials_files = ["/root/.aws/creds"]
+  region                  = "us-east-1"
+  shared_credentials_file = "/var/lib/jenkins/.aws/credentials"
+  profile                 = "default"
 }
