@@ -97,7 +97,7 @@ resource "aws_iam_role" "web1role" {
             ]
         })
     }
-    managed_policy_arns = [data.aws_iam_policy.AmazonEC2RoleforSSM.arn, data.aws_iam_policy.AmazonEC2RoleforSSM.arn, data.aws_iam_policy.CloudWatchActionsEC2Access.arn]
+    managed_policy_arns = [data.aws_iam_policy.AmazonSSMManagedInstanceCore.arn, data.aws_iam_policy.AmazonEC2RoleforSSM.arn, data.aws_iam_policy.CloudWatchActionsEC2Access.arn]
 }  
 
 resource "aws_iam_instance_profile" "EC2InstanceProfile" {
@@ -111,7 +111,7 @@ resource "aws_instance" "web1" {
     ami                    = var.ami_id
     vpc_security_group_ids = [aws_security_group.ec2_sg.id]
     subnet_id              = var.subnet_id
-    iam_instance_profile   = aws_iam_instance_profile.EC2InstanceProfile.arn
+    iam_instance_profile   = aws_iam_instance_profile.EC2InstanceProfile.name
     root_block_device {  
         volume_size = var.disk_size
     }
