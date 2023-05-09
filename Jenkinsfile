@@ -19,7 +19,7 @@ pipeline {
             }
         }
 
-        stage('Terraform init') {
+        stage('Terraform plan') {
             steps {
                 dir('infrastructure'){
                 sh ('terraform plan')
