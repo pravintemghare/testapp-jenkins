@@ -18,6 +18,14 @@ pipeline {
                 }
             }
         }
+
+        stage('Terraform init') {
+            steps {
+                dir('infrastructure'){
+                sh ('terraform plan')
+                }
+            }
+        }        
         
         stage('Terraform action') {
             steps {
