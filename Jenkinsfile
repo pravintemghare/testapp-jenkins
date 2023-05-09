@@ -5,22 +5,26 @@ pipeline {
         stage('GitCheckout') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: "*/master"]],
-                  userRemoteConfigs: [[url: 'https://github.com/pravintemghare/myapp.git',
-                                       credentialsId: 'GitHub cred']]
+                  userRemoteConfigs: [[url: 'https://github.com/pravintemghare/testapp-jenkins.git',
+                                       credentialsId: 'github']]
                 ])    
             }
         }
 
         stage('Terraform init') {
             steps {
+                dir('infrastructure'){
                 sh ('terraform init')
+                }
             }
         }
         
         stage('Terraform action') {
             steps {
                 echo "Terraform action is --> ${action}"
+                dir('infrastructure'){
                 sh ('terraform ${action} --auto-approve')
+                }
             }
         }
     }
