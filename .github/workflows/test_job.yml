@@ -1,0 +1,48 @@
+name: test_job
+on:
+  workflow_dispatch:
+jobs:
+  GitCheckout:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4.1.0
+    - name: checkout
+      uses: actions/checkout@v4.1.0
+      with:
+        repository: pravintemghare/testapp-jenkins
+  Terraform_init:
+    name: Terraform init
+    runs-on: ubuntu-latest
+    needs: GitCheckout
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4.1.0
+    - name: sh
+      shell: bash
+      run: terraform init
+      working-directory: infrastructure
+  Terraform_plan:
+    name: Terraform plan
+    runs-on: ubuntu-latest
+    needs: Terraform_init
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4.1.0
+    - name: sh
+      shell: bash
+      run: terraform plan
+      working-directory: infrastructure
+  Terraform_action:
+    name: Terraform action
+    runs-on: ubuntu-latest
+    needs: Terraform_plan
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4.1.0
+    - name: echo message
+      run: echo "Terraform action is --> ${{ env.action }}"
+    - name: sh
+      shell: bash
+      run: terraform ${{ env.action }} --auto-approve
+      working-directory: infrastructure
